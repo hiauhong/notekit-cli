@@ -77,12 +77,24 @@ enum JXAError: LocalizedError {
 // MARK: - 数据源(读)
 
 enum DataSource {
+    /// 把内嵌脚本写到临时目录(单二进制分发时 bundle 可能不存在)
+    static func writeEmbeddedScript(_ name: String, _ content: String) throws -> URL {
+        let dir = FileManager.default.temporaryDirectory
+            .appendingPathComponent("notekit", isDirectory: true)
+        try FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
+        let url = dir.appendingPathComponent(name)
+        try content.write(to: url, atomically: true, encoding: .utf8)
+        return url
+    }
+
     static func fetchScript() throws -> URL {
-        let bundled = Bundle.module.url(forResource: "fetch-notes", withExtension: "js")
-        if let bundled { return bundled }
-        let repo = ScriptsDir.appendingPathComponent("fetch-notes.js")
-        if FileManager.default.fileExists(atPath: repo.path) { return repo }
-        throw JXAError.failed(status: -1, stderr: "找不到 fetch-notes.js")
+        if let bundled = Bundle.module.url(forResource: "fetch-notes", withExtension: "js") {
+            return bundled
+        }
+        if FileManager.default.fileExists(atPath: ScriptsDir.appendingPathComponent("fetch-notes.js").path) {
+            return ScriptsDir.appendingPathComponent("fetch-notes.js")
+        }
+        return try writeEmbeddedScript("fetch-notes.js", EmbeddedScripts.fetchNotes)
     }
 
     /// Scripts 目录:打包时随资源复制,开发时指向仓库 Scripts/
@@ -113,11 +125,13 @@ enum DataSource {
 
 enum Writer {
     static func writeScript() throws -> URL {
-        let bundled = Bundle.module.url(forResource: "note-write", withExtension: "js")
-        if let bundled { return bundled }
-        let repo = DataSource.ScriptsDir.appendingPathComponent("note-write.js")
-        if FileManager.default.fileExists(atPath: repo.path) { return repo }
-        throw JXAError.failed(status: -1, stderr: "找不到 note-write.js")
+        if let bundled = Bundle.module.url(forResource: "note-write", withExtension: "js") {
+            return bundled
+        }
+        if FileManager.default.fileExists(atPath: DataSource.ScriptsDir.appendingPathComponent("note-write.js").path) {
+            return DataSource.ScriptsDir.appendingPathComponent("note-write.js")
+        }
+        return try DataSource.writeEmbeddedScript("note-write.js", EmbeddedScripts.noteWrite)
     }
 
     static func perform(_ op: [String: Any]) throws -> WriteResult {

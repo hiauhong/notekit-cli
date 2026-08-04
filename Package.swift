@@ -13,11 +13,7 @@ let package = Package(
             dependencies: [
                 .product(name: "ArgumentParser", package: "swift-argument-parser"),
             ],
-            path: "Sources/notekit",
-            resources: [
-                .copy("../../Scripts/fetch-notes.js"),
-                .copy("../../Scripts/note-write.js"),
-            ]
+            path: "Sources/notekit"
         ),
     ]
 )

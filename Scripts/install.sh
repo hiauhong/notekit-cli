@@ -14,9 +14,8 @@ swift build -c release
 
 mkdir -p "$INSTALL_DIR"
 cp .build/release/notekit "$INSTALL_DIR/notekit"
-cp -R .build/release/notekit_notekit.bundle "$INSTALL_DIR/notekit_notekit.bundle"
 chmod +x "$INSTALL_DIR/notekit"
-ok "已安装到 $INSTALL_DIR/notekit(含 JXA bundle)"
+ok "已安装到 $INSTALL_DIR/notekit(单二进制,JXA 脚本内嵌)"
 
 if [[ ":$PATH:" != *":$INSTALL_DIR:"* ]]; then
     printf "\033[1;33m⚠\033[0m %s\n" "$INSTALL_DIR 不在 PATH,请加: export PATH=\"$INSTALL_DIR:\$PATH\""

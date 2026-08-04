@@ -20,10 +20,9 @@ trap 'rm -rf "$STAGE"' EXIT
 
 mkdir -p "$STAGE/bin/.agents/skills"
 cp .build/release/notekit "$STAGE/bin/notekit"
-cp -R .build/release/notekit_notekit.bundle "$STAGE/bin/notekit_notekit.bundle"
 cp -R .agents/skills/notekit "$STAGE/bin/.agents/skills/notekit"
 
 mkdir -p dist
 tar -czf "dist/notekit-darwin-${ARCH}.tar.gz" -C "$STAGE" bin
 echo "✓ dist/notekit-darwin-${ARCH}.tar.gz"
-echo "  contents: notekit, notekit_notekit.bundle(JXA 脚本), .agents/skills/notekit/SKILL.md"
+echo "  contents: notekit, .agents/skills/notekit/SKILL.md"
