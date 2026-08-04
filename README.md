@@ -11,7 +11,9 @@ notekit 是 macOS 命令行工具,从 Apple Notes(备忘录)导出结构化数�
 ## 安装
 
 ```bash
-./Scripts/install.sh     # 构建并装到 ~/.local/bin,自动注册 agent skill
+brew install hiauhong/tap/notekit
+# 或
+./Scripts/install.sh     # 从源码构建,装完自动注册 agent skill
 ```
 
 ## 首次使用:授权 + 备份
