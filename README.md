@@ -14,6 +14,15 @@ notekit 是 macOS 命令行工具,从 Apple Notes(备忘录)导出结构化数�
 ./Scripts/install.sh     # 构建并装到 ~/.local/bin,自动注册 agent skill
 ```
 
+## 首次使用:授权 + 备份
+
+```bash
+notekit doctor                       # ① 检查权限(首次会弹授权框,点「允许」)
+notekit dump > ~/notes-backup.json   # ② 先做全量基线备份
+```
+
+> 权限归属于宿主进程(终端/agent 宿主);之后进行写操作(新建/修改/移动/删除)前,可随时再 dump 对照。
+
 ## 快速开始
 
 ```bash
