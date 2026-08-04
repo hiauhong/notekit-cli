@@ -88,22 +88,16 @@ enum DataSource {
     }
 
     static func fetchScript() throws -> URL {
-        if let bundled = Bundle.module.url(forResource: "fetch-notes", withExtension: "js") {
-            return bundled
-        }
         if FileManager.default.fileExists(atPath: ScriptsDir.appendingPathComponent("fetch-notes.js").path) {
             return ScriptsDir.appendingPathComponent("fetch-notes.js")
         }
         return try writeEmbeddedScript("fetch-notes.js", EmbeddedScripts.fetchNotes)
     }
 
-    /// Scripts 目录:打包时随资源复制,开发时指向仓库 Scripts/
+    /// Scripts 目录:开发时指向仓库 Scripts/(改 JS 即生效);分发走内嵌脚本
     static var ScriptsDir: URL {
-        if let url = Bundle.module.url(forResource: "note-write", withExtension: "js") {
-            return url.deletingLastPathComponent()
-        }
-        // swift run 时 bundle 含资源副本,走上面分支;兜底当前目录
-        return URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
+        URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
+            .appendingPathComponent("Scripts")
     }
 
     static func dump(wantHtml: Bool = false, meta: Bool = false) throws -> NotesDocument {
@@ -125,9 +119,6 @@ enum DataSource {
 
 enum Writer {
     static func writeScript() throws -> URL {
-        if let bundled = Bundle.module.url(forResource: "note-write", withExtension: "js") {
-            return bundled
-        }
         if FileManager.default.fileExists(atPath: DataSource.ScriptsDir.appendingPathComponent("note-write.js").path) {
             return DataSource.ScriptsDir.appendingPathComponent("note-write.js")
         }
