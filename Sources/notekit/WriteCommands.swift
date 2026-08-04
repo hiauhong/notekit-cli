@@ -1,7 +1,7 @@
 import Foundation
 import ArgumentParser
 
-// MARK: - 写入命令(测试纪律:写操作仅允许在 notekit-冒烟 命名空间,见 AGENTS.md)
+// MARK: - 写入命令(测试纪律:写操作仅允许在 notekit-冒烟 命名空间)
 
 private enum WriteGuard {
     /// 写入保护:非测试场景下,目标名称/正文必须带冒烟标记的操作需显式 --force

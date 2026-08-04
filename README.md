@@ -31,5 +31,4 @@ notekit delete <id> --purge          # 删除(--purge 永久)
 
 ## 文档
 
-- [AGENTS.md](AGENTS.md) — agent 使用指南与测试纪律
 - [docs/notes-applescript.md](docs/notes-applescript.md) — AppleScript/JXA 陷阱与架构知识
