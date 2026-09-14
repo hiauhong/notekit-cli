@@ -4,7 +4,7 @@
 
 notekit 是 macOS 命令行工具,从 Apple Notes(备忘录)导出结构化数据,并支持完整读写(导出/搜索/新建/修改/移动/删除)。**面向 AI agent**:统一 JSON 输出、内置 skill、写安全契约。走 AppleScript 公开 API,**免完全磁盘访问**。
 
-> 🎨 **Vibe coding 项目**：功能、测试与文档由 AI agent 协作产出（vibe coding），**未经人工逐行审查，请谨慎用于生产环境**。
+> 🤖 **Vibe coding 项目**：功能、测试与文档由 AI agent 协作产出（vibe coding），**未经人工逐行审查，请谨慎用于生产环境**。
 
 > **🔒 隐私** — 数据仅本机处理,不发任何网络请求;需要「自动化 → 控制 Notes」权限(TCC),首次运行按提示授权。
 
